@@ -14,8 +14,6 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
 //        DB::table('users')->delete();
-        factory(User::class, 100)->create()->each( function ($user) {
-            $user->school()->save(factory(\App\School::class)->make());
-        });
+        factory(User::class, 100)->create();
     }
 }

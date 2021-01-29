@@ -15,10 +15,12 @@ class UserImportController extends Controller
 
     public function import(Request $request)
     {
-        $data = Excel::toArray(new UsersImport, $request->file('file') );
-//    dd($data);
-        return view('imports.table', [
-            'users' => $data
+        $this->validate($request, [
+            'file' => 'required|mimes:xls,xlsx'
         ]);
+
+        Excel::import(new UsersImport, $request->file('file'));
+
+        return back()->with('success', 'File excel has been import successfully.');
     }
 }
